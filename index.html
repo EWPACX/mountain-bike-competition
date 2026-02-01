@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东大山地车公园 X 连吾体育四季联赛竞赛章程</title>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid #2a9d8f;
+            background: linear-gradient(135deg, #264653 0%, #2a9d8f 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 12px 12px 0 0;
+            margin: -40px -40px 40px -40px;
+        }
+        
+        h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            color: #e9c46a;
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .season-badge {
+            display: inline-block;
+            background-color: #e9c46a;
+            color: #264653;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .league-info {
+            background-color: #f8f9fa;
+            border: 2px solid #2a9d8f;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0 30px 0;
+        }
+        
+        .league-info h3 {
+            color: #264653;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .league-info h3 svg {
+            color: #e76f51;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f1f8f7;
+            border-radius: 10px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #2a9d8f, #21867a);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(42, 157, 143, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(42, 157, 143, 0.4);
+        }
+        
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e0e0e0;
+            background-color: #f8f9fa;
+            border-radius: 10px 10px 0 0;
+            padding: 5px;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .tab:hover {
+            background-color: #e9f5f3;
+        }
+        
+        .tab.active {
+            color: #2a9d8f;
+            border-bottom: 3px solid #2a9d8f;
+            background-color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #264653 0%, #2a9d8f 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e9f5f3;
+            transform: scale(1.002);
+            transition: transform 0.2s;
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #2a9d8f 0%, #4cc9f0 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #e9c46a;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .note strong {
+            color: #856404;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .date {
+            color: #2a9d8f;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 30px 20px;
+                margin: -20px -20px 30px -20px;
+            }
+            
+            h1 {
+                font-size: 30px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .tabs {
+                justify-content: flex-start;
+            }
+            
+            .tab {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 25px 15px;
+                margin: -15px -15px 25px -15px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+        
+        .age-badge {
+            display: inline-block;
+            background-color: #e76f51;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+        
+        .required {
+            color: #e63946;
+            font-weight: bold;
+        }
+        
+        .fee-badge {
+            display: inline-block;
+            background-color: #4cc9f0;
+            color: #264653;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .points-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e9c46a 0%, #f4a261 100%);
+            color: #264653;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .sponsor-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .sponsor-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .sponsor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .sponsor-logo {
+            height: 180px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .sponsor-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .sponsor-info {
+            padding: 25px;
+        }
+        
+        .sponsor-title {
+            color: #264653;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sponsor-title svg {
+            color: #2a9d8f;
+        }
+        
+        .sponsor-description {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .sponsor-level {
+            display: inline-block;
+            background-color: #264653;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        .level-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 20px 0;
+            color: #264653;
+            font-size: 24px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9c46a;
+        }
+        
+        .level-title svg {
+            color: #e9c46a;
+        }
+        
+        .points-system {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e9c46a;
+        }
+        
+        .points-system h3 {
+            color: #264653;
+            font-size: 26px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .points-system h3 svg {
+            color: #e76f51;
+        }
+        
+        .points-table {
+            margin: 20px 0;
+        }
+        
+        .points-table th {
+            background: linear-gradient(135deg, #e9c46a 0%, #f4a261 100%);
+        }
+        
+        .season-points {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #2a9d8f;
+        }
+        
+        .season-points h4 {
+            color: #264653;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .season-points h4 svg {
+            color: #2a9d8f;
+        }
+        
+        .total-points {
+            background-color: #264653;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .total-points h3 {
+            color: #e9c46a;
+            margin-bottom: 15px;
+        }
+        
+        .total-points p {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            background-color: rgba(233, 196, 106, 0.2);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        .points-note {
+            background-color: #fff3cd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #e9c46a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>东大山地车公园 X 连吾体育</h1>
+            <div class="subtitle">山地车四季联赛竞赛章程（春季赛）</div>
+            <div class="season-badge">春季赛：2026年3月7日-8日 | 四季联赛第一站</div>
+            
+            <div class="league-info">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+                        <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                    </svg>
+                    四季联赛赛程安排
+                </h3>
+                <p><strong>春季赛：</strong>2026年3月7-8日 | <strong>夏季赛：</strong>2026年6月6-7日 | <strong>秋季赛：</strong>2026年9月5-6日 | <strong>冬季赛：</strong>2026年12月5-6日</p>
+                <p>四季联赛设有年度总积分榜，选手通过参加各赛季比赛积累积分，争夺年度总冠军荣誉及丰厚奖励。</p>
+            </div>
+        </header>
+        
+        <div class="controls">
+            <div class="tabs">
+                <button class="tab active" data-tab="basic">基本信息</button>
+                <button class="tab" data-tab="groups">分组详情</button>
+                <button class="tab" data-tab="schedule">赛程安排</button>
+                <button class="tab" data-tab="rules">参赛规则</button>
+                <button class="tab" data-tab="equipment">装备要求</button>
+                <button class="tab" data-tab="points">积分机制</button>
+                <button class="tab" data-tab="sponsors">赞助商</button>
+            </div>
+            
+            <button class="download-btn" id="downloadExcel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                </svg>
+                下载Excel文件
+            </button>
+        </div>
+        
+        <!-- 基本信息标签页 -->
+        <div id="basic" class="tab-content active">
+            <table>
+                <tr class="category-header">
+                    <td colspan="2">第一章 总则</td>
+                </tr>
+                <tr>
+                    <th style="width: 25%;">项目</th>
+                    <th>内容</th>
+                </tr>
+                <tr>
+                    <td>赛事宗旨</td>
+                    <td>本次东大山地车公园 X 连吾体育四季联赛（春季赛）速降赛、土坡动作赛，以"推广山地自行车运动、搭建车友交流平台、传承极限运动精神、展现骑行竞技风采"为宗旨，秉持"公平、公正、公开、安全第一"的原则，为省内外山地车爱好者提供专业、规范、趣味的赛事体验，助力云南山地自行车运动持续发展，同时打造"四季有赛事、月月有活动"的山地骑行赛事IP</td>
+                </tr>
+                <tr>
+                    <td>赛事名称</td>
+                    <td>东大山地车公园 X 连吾体育 山地车四季联赛（春季赛）</td>
+                </tr>
+                <tr>
+                    <td>赛事主题</td>
+                    <td>悦动山野，四季骑缘</td>
+                </tr>
+                <tr>
+                    <td>主办单位</td>
+                    <td>东大山地车公园、连吾体育</td>
+                </tr>
+                <tr>
+                    <td>承办单位</td>
+                    <td>贵州连吾体育</td>
+                </tr>
+                <tr>
+                    <td>场地支持</td>
+                    <td>丘谷户外运动营地</td>
+                </tr>
+                <tr>
+                    <td>比赛日期</td>
+                    <td><span class="date">2026年3月7日（星期六）至3月8日（星期日）</span></td>
+                </tr>
+                <tr>
+                    <td>比赛地点</td>
+                    <td>东大山地车公园（昆明市盘龙区东大村142号）</td>
+                </tr>
+                <tr>
+                    <td>比赛项目</td>
+                    <td>
+                        <strong>1. 山地车速降赛 (DH):</strong> 赛道全长约1000米，海拔落差约80米，采用"排位赛+决赛"制<br>
+                        <strong>2. 土坡技巧赛 (Dirt Jump):</strong> 裁判组根据动作难度、完成度、流畅性、风格综合评分
+                    </td>
+                </tr>
+                <tr>
+                    <td>联赛说明</td>
+                    <td>本赛事为"东大山地车公园 X 连吾体育四季联赛"的第一站（春季赛），全年共设春夏秋冬四站比赛。赛事设置年度积分系统，选手通过参加各赛季比赛积累积分，争夺年度总冠军荣誉及丰厚奖励。</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>注意：</strong> 如遇暴雨、雷电、地质灾害等极端天气或不可抗力，组委会有权推迟、缩短赛程、变更赛道或取消比赛。若取消，将根据实际情况办理部分退款或名额顺延。
+            </div>
+        </div>
+        
+        <!-- 分组详情标签页 -->
+        <div id="groups" class="tab-content">
+            <table>
+                <tr class="category-header">
+                    <td colspan="6">第二章 速降赛分组详情</td>
+                </tr>
+                <tr>
+                    <th>组别</th>
+                    <th>年龄要求</th>
+                    <th>报名名额</th>
+                    <th>决赛名额</th>
+                    <th>获奖名额</th>
+                    <th>特殊说明</th>
+                </tr>
+                <tr>
+                    <td>少年组</td>
+                    <td><span class="age-badge">8-13周岁</span></td>
+                    <td>70人</td>
+                    <td>30人</td>
+                    <td>10人</td>
+                    <td>男女不限，需监护人全程陪同或需监护人签署免责协议及监护人知情并同意的相关视频</td>
+                </tr>
+                <tr>
+                    <td>青年组</td>
+                    <td><span class="age-badge">14-17周岁</span></td>
+                    <td>70人</td>
+                    <td>30人</td>
+                    <td>10人</td>
+                    <td>男女不限，需监护人签署免责协议及监护人知情并同意的相关视频</td>
+                </tr>
+                <tr>
+                    <td>成人公开组</td>
+                    <td><span class="age-badge">18-60周岁</span></td>
+                    <td>40人</td>
+                    <td>15人</td>
+                    <td>6人</td>
+                    <td>男女不限，无专业资格限制</td>
+                </tr>
+                <tr>
+                    <td>精英组</td>
+                    <td><span class="age-badge">18-55周岁</span></td>
+                    <td>20人</td>
+                    <td>12人</td>
+                    <td>6人</td>
+                    <td>
+                        需满足以下任一资格：
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li>参加过至少一场国内高水平专业速降赛事</li>
+                            <li>在地方级以上赛事中获得前六名</li>
+                            <li>提交优异赛事成绩证明并经审核通过</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>大师组</td>
+                    <td><span class="age-badge">35-60周岁</span></td>
+                    <td>30人</td>
+                    <td>15人</td>
+                    <td>6人</td>
+                    <td>仅限男性</td>
+                </tr>
+                <tr>
+                    <td>女子组</td>
+                    <td><span class="age-badge">8-60周岁</span></td>
+                    <td>20人</td>
+                    <td>12人</td>
+                    <td>6人</td>
+                    <td>仅限女性</td>
+                </tr>
+            </table>
+            
+            <table style="margin-top: 30px;">
+                <tr class="category-header">
+                    <td colspan="3">土坡技巧赛分组</td>
+                </tr>
+                <tr>
+                    <th style="width: 20%;">组别</th>
+                    <th style="width: 30%;">年龄要求</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td>公开组</td>
+                    <td><span class="age-badge">8-60周岁</span></td>
+                    <td>暂设为公开组，所有选手同场竞技。限50人报名，统一评判。若报名人数过多，组委会可能按年龄或水平再分组。</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>分组规则说明：</strong> 选手不可跨年龄组兼报，但女子组选手可同时选择报名对应年龄的公开组别（精英组/大师组）。所有年龄计算以赛事当天身份证实际年龄为准。
+            </div>
+        </div>
+        
+        <!-- 赛程安排标签页 -->
+        <div id="schedule" class="tab-content">
+            <table>
+                <tr class="category-header">
+                    <td colspan="4">3月7日（第一天：速降赛排位赛）</td>
+                </tr>
+                <tr>
+                    <th style="width: 20%;">时间</th>
+                    <th style="width: 30%;">内容</th>
+                    <th style="width: 20%;">地点</th>
+                    <th>备注</th>
+                </tr>
+                <tr>
+                    <td>08:30-10:00</td>
+                    <td>选手签到、领取赛事包、车辆检查、签署免责声明</td>
+                    <td>场地入口签到处</td>
+                    <td>未成年人需监护人陪同并提交签字文件</td>
+                </tr>
+                <tr>
+                    <td>10:00-10:30</td>
+                    <td>开幕式</td>
+                    <td>签到处广场</td>
+                    <td>所有选手须参加</td>
+                </tr>
+                <tr>
+                    <td>10:30-11:30</td>
+                    <td>少年组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车，单人发车制</td>
+                </tr>
+                <tr>
+                    <td>11:30-13:00</td>
+                    <td>青年组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车</td>
+                </tr>
+                <tr>
+                    <td>13:00-13:20</td>
+                    <td>成人公开组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车</td>
+                </tr>
+                <tr>
+                    <td>13:20-13:40</td>
+                    <td>女子组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车</td>
+                </tr>
+                <tr>
+                    <td>13:40-14:00</td>
+                    <td>精英组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车</td>
+                </tr>
+                <tr>
+                    <td>14:00-15:00</td>
+                    <td>大师组排位赛</td>
+                    <td>速降赛道</td>
+                    <td>按号码牌顺序发车</td>
+                </tr>
+                <tr>
+                    <td>15:00-16:00</td>
+                    <td>排位赛成绩公示、答疑</td>
+                    <td>签到处公告栏</td>
+                    <td>选手如有异议可现场提交书面申诉</td>
+                </tr>
+            </table>
+            
+            <table style="margin-top: 30px;">
+                <tr class="category-header">
+                    <td colspan="4">3月8日（第二天：速降赛决赛 + 土坡动作赛 + 颁奖）</td>
+                </tr>
+                <tr>
+                    <th style="width: 20%;">时间</th>
+                    <th style="width: 30%;">内容</th>
+                    <th style="width: 20%;">地点</th>
+                    <th>备注</th>
+                </tr>
+                <tr>
+                    <td>09:00-09:30</td>
+                    <td>速降赛决赛选手检录</td>
+                    <td>场地入口</td>
+                    <td>核对决赛资格，车辆二次检查</td>
+                </tr>
+                <tr>
+                    <td>09:30-10:20</td>
+                    <td>少年组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车（最快者最后）</td>
+                </tr>
+                <tr>
+                    <td>10:20-11:10</td>
+                    <td>青年组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车</td>
+                </tr>
+                <tr>
+                    <td>11:10-11:30</td>
+                    <td>成人公开组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车</td>
+                </tr>
+                <tr>
+                    <td>11:30-11:50</td>
+                    <td>女子组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车</td>
+                </tr>
+                <tr>
+                    <td>11:50-12:10</td>
+                    <td>精英组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车</td>
+                </tr>
+                <tr>
+                    <td>12:10-12:30</td>
+                    <td>大师组决赛</td>
+                    <td>速降赛道</td>
+                    <td>按排位赛成绩倒序发车</td>
+                </tr>
+                <tr>
+                    <td>12:30-13:30</td>
+                    <td>成绩统计、土坡赛检录与试场</td>
+                    <td>对应区域</td>
+                    <td>速降赛成绩核对与公布</td>
+                </tr>
+                <tr>
+                    <td>13:30-16:00</td>
+                    <td>土坡动作赛正式竞赛</td>
+                    <td>土坡赛道</td>
+                    <td>每人2次机会，每次不超过60秒</td>
+                </tr>
+                <tr>
+                    <td>16:00-16:30</td>
+                    <td>总成绩统计核对</td>
+                    <td>裁判区</td>
+                    <td>最终成绩确定</td>
+                </tr>
+                <tr>
+                    <td>17:00-17:30</td>
+                    <td>闭幕式暨颁奖仪式</td>
+                    <td>签到处广场</td>
+                    <td>按组别依次颁奖，合影留念</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>赛程说明：</strong> 以上为拟定日程，组委会有权根据实际情况进行微调。最终日程以赛前发布的《赛事指南》为准。后续夏、秋、冬三季赛事流程，将在赛前15天另行发布具体通知。
+            </div>
+        </div>
+        
+        <!-- 参赛规则标签页 -->
+        <div id="rules" class="tab-content">
+            <table>
+                <tr class="category-header">
+                    <td colspan="2">第四章 参赛规则</td>
+                </tr>
+                <tr>
+                    <th style="width: 30%;">项目</th>
+                    <th>规则详情</th>
+                </tr>
+                <tr>
+                    <td>参赛资格</td>
+                    <td>
+                        1. 身体健康，具备相应骑行技能与体能<br>
+                        2. 完全了解比赛风险，自愿签署《免责声明书》<br>
+                        3. 18岁以下者必须由监护人签署文件和录制并全程陪同<br>
+                        4. 赛事组委会为所有选手购买比赛日基础意外险
+                    </td>
+                </tr>
+                <tr>
+                    <td>报名时间</td>
+                    <td><span class="date">2026年3月5日24:00截止</span>（各组别报满即止，逾期不再接受报名）</td>
+                </tr>
+                <tr>
+                    <td>报名方式</td>
+                    <td>通过主办方官方指定的线上平台报名，填写真实信息并选择组别</td>
+                </tr>
+                <tr>
+                    <td>报名费用</td>
+                    <td>
+                        <strong>速降赛：</strong> <span class="fee-badge">138元/人</span><br>
+                        <strong>土坡技巧赛：</strong> <span class="fee-badge">128元/人</span><br>
+                        <strong>双项目报名：</strong> <span class="fee-badge">238元/人</span>（优惠价）<br>
+                        <em>费用包含：赛事包、号码牌、比赛日基础保险、参赛纪念品等。</em>
+                    </td>
+                </tr>
+                <tr>
+                    <td>取消与退款</td>
+                    <td>
+                        报名成功后，因个人原因无法参赛：<br>
+                        1. <strong>2026年2月28日18:00前</strong>申请，可退还50%报名费<br>
+                        2. 之后不予退款，但可按规定自行转让名额
+                    </td>
+                </tr>
+                <tr>
+                    <td>竞赛规则</td>
+                    <td>
+                        1. 比赛参照中国自行车运动协会审定的最新规则执行<br>
+                        2. <strong>速降赛赛制：</strong> 排位赛+决赛，排位赛决定决赛发车顺序<br>
+                        3. <strong>土坡赛赛制：</strong> 裁判从难度、完成度、流畅性、风格四个维度百分制评分<br>
+                        4. <strong>公平竞赛：</strong> 选手须独立完成比赛，服从裁判判罚<br>
+                        5. 对判罚有异议，可于赛后30分钟内提交书面申诉并缴纳申诉费
+                    </td>
+                </tr>
+                <tr>
+                    <td>安全与环保</td>
+                    <td>
+                        1. 选手须始终将安全置于首位，遇身体不适立即停止比赛并求助<br>
+                        2. 赛事处于森林防火期，<span class="required">严禁在赛区内任何地方吸烟、生火野炊</span><br>
+                        3. 保护环境，所有垃圾必须带至指定丢弃点<br>
+                        4. 非参赛选手严禁进入赛道，禁止在赛道逆向推行或行走
+                    </td>
+                </tr>
+                <tr>
+                    <td>名次录取</td>
+                    <td>按章程中设定的"获奖名额"进行录取。若某组别实际完赛人数少于获奖名额，则按实际完赛人数递减录取</td>
+                </tr>
+                <tr>
+                    <td>奖励办法</td>
+                    <td>各组别前三名颁发奖杯、奖牌及证书，所有获奖选手将获得奖金或等值奖品。具体奖金分配方案将于赛前在官方平台公布</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- 装备要求标签页 -->
+        <div id="equipment" class="tab-content">
+            <table>
+                <tr class="category-header">
+                    <td colspan="2">第五章 装备要求</td>
+                </tr>
+                <tr>
+                    <th style="width: 30%;">装备类型</th>
+                    <th>具体要求</th>
+                </tr>
+                <tr>
+                    <td>车辆要求</td>
+                    <td>
+                        <strong>基本要求：</strong><br>
+                        1. 参赛自行车须为<span class="required">24-29英寸</span>轮径的山地自行车<br>
+                        2. 必须使用<span class="required">宽度≥2.2英寸的齿胎</span><br>
+                        3. 推荐使用全避震车型，前叉避震行程<span class="required">建议≥100mm</span><br>
+                        4. <span class="required">严禁使用</span>带有金属螺钉或长钉的轮胎<br>
+                        5. 比赛前必须通过安全检查并粘贴合格标识
+                    </td>
+                </tr>
+                <tr>
+                    <td>速降赛护具<br><span class="required">(强制要求)</span></td>
+                    <td>
+                        1. <span class="required">必须佩戴全盔</span><br>
+                        2. <span class="required">必须佩戴护膝、护肘</span><br>
+                        3. <span class="required">必须佩戴全指手套</span><br>
+                        4. <strong>建议穿戴：</strong> 护甲、护颈等专业护具<br>
+                        5. 组委会或裁判有权根据天气或赛道状况，临时提升护具强制要求
+                    </td>
+                </tr>
+                <tr>
+                    <td>土坡技巧赛护具<br><span class="required">(强制要求)</span></td>
+                    <td>
+                        1. <span class="required">必须佩戴全盔或高品质山地车半盔</span><br>
+                        2. <span class="required">必须佩戴护膝、护肘</span><br>
+                        3. <strong>建议穿戴：</strong> 全指手套、护甲等专业护具
+                    </td>
+                </tr>
+                <tr>
+                    <td>通用禁令</td>
+                    <td>
+                        1. <span class="required">禁止佩戴玻璃镜片的眼镜</span><br>
+                        2. <span class="required">不得穿拖鞋或赤脚骑行</span><br>
+                        3. 所有装备必须在赛前通过安全检查
+                    </td>
+                </tr>
+                <tr>
+                    <td>装备检查</td>
+                    <td>所有参赛车辆和护具必须在签到期间接受安全检查，合格后方可粘贴参赛标识。未通过检查或未粘贴标识的装备不得用于比赛。</td>
+                </tr>
+            </table>
+            
+            <div class="note">
+                <strong>安全须知：</strong> 装备要求是保障选手安全的基础，不符合要求的选手将被禁止参赛。请所有选手在赛前仔细检查自己的车辆和护具，确保符合章程要求。
+            </div>
+        </div>
+        
+        <!-- 积分机制标签页 -->
+        <div id="points" class="tab-content">
+            <div class="points-system">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm.5-14.5a.5.5 0 0 1 .5.5v4.5a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    </svg>
+                    四季联赛积分机制说明
+                </h3>
+                
+                <div class="season-points">
+                    <h4>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4.5 5a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 1 0V5.5A.5.5 0 0 0 4.5 5zm3 0a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-.5-.5z"/>
+                            <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12z"/>
+                        </svg>
+                        积分计算规则
+                    </h4>
+                    <p>四季联赛采用积分制，选手在每站比赛中根据名次获得相应积分。全年四站比赛结束后，各组成绩最好的<span class="highlight">3站积分</span>相加，得出年度总积分。</p>
+                </div>
+                
+                <table class="points-table">
+                    <tr class="category-header">
+                        <td colspan="11">速降赛积分分配表（按名次）</td>
+                    </tr>
+                    <tr>
+                        <th>名次</th>
+                        <th>第1名</th>
+                        <th>第2名</th>
+                        <th>第3名</th>
+                        <th>第4名</th>
+                        <th>第5名</th>
+                        <th>第6名</th>
+                        <th>第7名</th>
+                        <th>第8名</th>
+                        <th>第9名</th>
+                        <th>第10名</th>
+                    </tr>
+                    <tr>
+                        <td><strong>积分</strong></td>
+                        <td><span class="points-badge">100</span></td>
+                        <td><span class="points-badge">85</span></td>
+                        <td><span class="points-badge">75</span></td>
+                        <td><span class="points-badge">65</span></td>
+                        <td><span class="points-badge">55</span></td>
+                        <td><span class="points-badge">50</span></td>
+                        <td><span class="points-badge">45</span></td>
+                        <td><span class="points-badge">40</span></td>
+                        <td><span class="points-badge">35</span></td>
+                        <td><span class="points-badge">30</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>名次</strong></td>
+                        <td>第11名</td>
+                        <td>第12名</td>
+                        <td>第13名</td>
+                        <td>第14名</td>
+                        <td>第15名</td>
+                        <td>第16-20名</td>
+                        <td>第21-30名</td>
+                        <td>完赛</td>
+                        <td>参赛</td>
+                        <td>DNS/DNF</td>
+                    </tr>
+                    <tr>
+                        <td><strong>积分</strong></td>
+                        <td>25</td>
+                        <td>20</td>
+                        <td>18</td>
+                        <td>16</td>
+                        <td>14</td>
+                        <td>10</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+                
+                <div class="season-points">
+                    <h4>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 1 0 .658.753l1.957-1.716a.5.5 0 0 0-.658-.753l-1.957 1.716zM8 10.5a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v4a.5.5 0 0 0 .5.5z"/>
+                        </svg>
+                        土坡技巧赛积分规则
+                    </h4>
+                    <p>土坡技巧赛积分规则与速降赛相同，但独立计算。土坡技巧赛年度积分单独排名，不与速降赛积分合并。</p>
+                </div>
+                
+                <table class="points-table">
+                    <tr class="category-header">
+                        <td colspan="6">精英组额外积分奖励</td>
+                    </tr>
+                    <tr>
+                        <th>奖励项目</th>
+                        <th>打破赛道纪录</th>
+                        <th>每站最快单圈</th>
+                        <th>连续参加3站</th>
+                        <th>全年全勤（4站）</th>
+                        <th>年度进步最大</th>
+                    </tr>
+                    <tr>
+                        <td><strong>额外积分</strong></td>
+                        <td><span class="points-badge">+15</span></td>
+                        <td><span class="points-badge">+10</span></td>
+                        <td><span class="points-badge">+20</span></td>
+                        <td><span class="points-badge">+30</span></td>
+                        <td><span class="points-badge">+25</span></td>
+                    </tr>
+                </table>
+                
+                <div class="total-points">
+                    <h3>年度总积分与奖励</h3>
+                    <p>四季联赛结束后，各<span class="highlight">组别年度总积分前10名</span>选手将获得"年度总冠军"、"年度亚军"、"年度季军"等荣誉称号及丰厚奖励。</p>
+                    <p><strong>年度总冠军奖励：</strong> 冠军奖杯 + 10000元现金/等价奖品 + 下赛季免费参赛资格 + 赞助商产品大礼包</p>
+                    <p><strong>年度亚军奖励：</strong> 亚军奖杯 + 5000元现金/等价奖品 + 下赛季半价参赛资格</p>
+                    <p><strong>年度季军奖励：</strong> 季军奖杯 + 3000元现金/等价奖品 + 下赛季8折参赛资格</p>
+                </div>
+                
+                <div class="points-note">
+                    <strong>积分规则说明：</strong> 
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>选手必须<span class="highlight">至少参加2站比赛</span>才有资格参与年度排名</li>
+                        <li>积分计算取选手最好的3站成绩相加，允许一站成绩不理想</li>
+                        <li>如遇积分相同，比较选手最好单站成绩，再相同则比较第二好成绩，以此类推</li>
+                        <li>年度积分榜将在每站比赛结束后3个工作日内更新，并公示于官方网站</li>
+                        <li>积分系统最终解释权归东大山地车公园 X 连吾体育四季联赛组委会所有</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 赞助商信息标签页 -->
+        <div id="sponsors" class="tab-content">
+            <div class="level-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+                首席冠名赞助商
+            </div>
+            
+            <div class="sponsor-container">
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 24px; font-weight: bold;">RST<br/><span style="font-size: 14px;">专业避震系统</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 13.5 1h-11zm4.5 9.5a.5.5 0 0 1 0-1h2a.5.5 0 0 1 0 1H7z"/>
+                            </svg>
+                            RST专业避震系统
+                        </div>
+                        <div class="sponsor-description">
+                            RST作为全球领先的自行车避震系统制造商，为本届四季联赛提供专业的避震前叉及技术支持。RST产品以卓越的性能、可靠的品质和创新的技术享誉全球山地车界。
+                        </div>
+                        <div class="sponsor-level">首席冠名赞助商</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                金牌合作伙伴
+            </div>
+            
+            <div class="sponsor-container">
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 22px; font-weight: bold;">GDRsport<br/><span style="font-size: 14px;">骑行装备专家</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 16a6 6 0 0 0 6-6c0-1.655-1.122-2.904-2.432-4.362C10.254 4.176 8.811 3 8 3s-2.254 1.176-3.568 2.638C3.122 7.096 2 8.345 2 10a6 6 0 0 0 6 6zM8 1c1.573 0 3.022.5 4.046 1.328C13.116 3.156 14 4.992 14 7c0 3.86-3.134 7-7 7s-7-3.14-7-7c0-2.008.884-3.844 1.954-4.672C4.978 1.5 6.427 1 8 1z"/>
+                            </svg>
+                            GDRsport骑行装备
+                        </div>
+                        <div class="sponsor-description">
+                            GDRsport为本赛事提供专业的骑行护具、服装及装备支持。其产品以卓越的保护性、舒适的穿着体验和时尚的设计受到广大骑行爱好者的青睐。
+                        </div>
+                        <div class="sponsor-level">金牌合作伙伴</div>
+                    </div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 22px; font-weight: bold;">LEATT<br/><span style="font-size: 14px;">防护科技</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429-2.024a.5.5 0 1 0-.808.588l1.66 2.354a.5.5 0 0 0 .808-.588L8.5 8.637V5.5z"/>
+                                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                            </svg>
+                            LEATT防护科技
+                        </div>
+                        <div class="sponsor-description">
+                            LEATT作为国际知名的防护装备品牌，为本赛事提供顶级的头盔、护颈、护甲等安全装备。LEATT以其创新的防护技术和卓越的产品质量，为选手提供全方位的安全保护。
+                        </div>
+                        <div class="sponsor-level">金牌合作伙伴</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.285 9.567a.5.5 0 1 0-.683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.398-2.75.5.5 0 1 0-.966-.26A2.498 2.498 0 0 1 8 10.5a2.498 2.498 0 0 1-2.395-1.75.5.5 0 0 0-.32-.183zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                </svg>
+                官方供应商
+            </div>
+            
+            <div class="sponsor-container">
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 20px; font-weight: bold;">WINICE<br/><span style="font-size: 13px;">运动饮料</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            WINICE运动饮料
+                        </div>
+                        <div class="sponsor-description">
+                            赛事官方指定运动饮料供应商，为选手提供专业的能量补充和水分补给，帮助选手在比赛中保持最佳状态。
+                        </div>
+                        <div class="sponsor-level">官方供应商</div>
+                    </div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 20px; font-weight: bold;">ONIRII<br/><span style="font-size: 13px;">自行车零件</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            ONIRII自行车零件
+                        </div>
+                        <div class="sponsor-description">
+                            提供高质量的自行车零部件及维修服务，确保选手的车辆在比赛中保持最佳性能状态。
+                        </div>
+                        <div class="sponsor-level">官方供应商</div>
+                    </div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 20px; font-weight: bold;">NTP<br/><span style="font-size: 13px;">轮胎专家</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            NTP专业轮胎
+                        </div>
+                        <div class="sponsor-description">
+                            提供专业的山地车轮胎及技术支持，为不同赛道条件提供最适合的轮胎解决方案。
+                        </div>
+                        <div class="sponsor-level">官方供应商</div>
+                    </div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">
+                        <!-- 这里替换为实际赞助商logo的URL -->
+                        <div style="text-align: center; color: #264653; font-size: 18px; font-weight: bold;">绿道越野头盔<br/><span style="font-size: 12px;">安全防护</span></div>
+                    </div>
+                    <div class="sponsor-info">
+                        <div class="sponsor-title">
+                            绿道越野头盔
+                        </div>
+                        <div class="sponsor-description">
+                            提供符合国际安全标准的专业骑行头盔，确保选手在比赛中的头部安全。
+                        </div>
+                        <div class="sponsor-level">官方供应商</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>赞助商合作说明：</strong> 感谢各赞助商对东大山地车公园 X 连吾体育四季联赛的大力支持。组委会将继续寻求与更多优秀品牌的合作机会，共同推动山地自行车运动的发展。如有意向成为赛事合作伙伴，请联系赛事商务负责人。
+            </div>
+        </div>
+        
+        <footer>
+            <p>本章程最终解释权归<strong>东大山地车公园 X 连吾体育四季联赛组委会</strong>所有。</p>
+            <p>未尽事宜，以赛前发布的《赛事指南》为准。</p>
+            <p style="margin-top: 15px;"><strong>2026东大山地车公园 X 连吾体育四季联赛组委会 · 二〇二六年二月一日</strong></p>
+            <p style="margin-top: 10px; font-size: 14px;">官方网站：www.dongda-mtb.com | 官方微信公众号：东大山地车公园</p>
+        </footer>
+    </div>
+
+    <script>
+        // 标签页切换功能
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有标签和内容的active类
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // 给当前点击的标签和对应内容添加active类
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Excel下载功能
+        document.getElementById('downloadExcel').addEventListener('click', function() {
+            // 创建Excel工作簿
+            const wb = XLSX.utils.book_new();
+            wb.Props = {
+                Title: "东大山地车公园四季联赛竞赛章程",
+                Subject: "山地车比赛章程（含积分机制与赞助商信息）",
+                Author: "东大山地车公园四季联赛组委会",
+                CreatedDate: new Date(2026,1,1)
+            };
+            
+            // 1. 基本信息表格
+            const basicData = [
+                ["第一章 总则"],
+                ["项目", "内容"],
+                ["赛事宗旨", "本次东大山地车公园 X 连吾体育四季联赛（春季赛）速降赛、土坡动作赛，以\"推广山地自行车运动、搭建车友交流平台、传承极限运动精神、展现骑行竞技风采\"为宗旨，秉持\"公平、公正、公开、安全第一\"的原则，为省内外山地车爱好者提供专业、规范、趣味的赛事体验，助力云南山地自行车运动持续发展，同时打造\"四季有赛事、月月有活动\"的山地骑行赛事IP"],
+                ["赛事名称", "东大山地车公园 X 连吾体育 山地车四季联赛（春季赛）"],
+                ["赛事主题", "悦动山野，四季骑缘"],
+                ["主办单位", "东大山地车公园、连吾体育"],
+                ["承办单位", "东大山地车公园赛事运营部、连吾体育赛事策划部"],
+                ["场地支持", "丘谷户外运动营地"],
+                ["比赛日期", "2026年3月7日（星期六）至3月8日（星期日）"],
+                ["比赛地点", "东大山地车公园（昆明市盘龙区东大村142号）"],
+                ["比赛项目", "1. 山地车速降赛 (DH): 赛道全长约1000米，海拔落差约80米，采用\"排位赛+决赛\"制\n2. 土坡技巧赛 (Dirt Jump): 裁判组根据动作难度、完成度、流畅性、风格综合评分"],
+                ["联赛说明", "本赛事为\"东大山地车公园 X 连吾体育四季联赛\"的第一站（春季赛），全年共设春夏秋冬四站比赛。赛事设置年度积分系统，选手通过参加各赛季比赛积累积分，争夺年度总冠军荣誉及丰厚奖励。"]
+            ];
+            const basicWs = XLSX.utils.aoa_to_sheet(basicData);
+            XLSX.utils.book_append_sheet(wb, basicWs, "基本信息");
+            
+            // 2. 分组详情表格
+            const groupsData = [
+                ["第二章 速降赛分组详情"],
+                ["组别", "年龄要求", "报名名额", "决赛名额", "获奖名额", "特殊说明"],
+                ["少年组", "8-13周岁", "70人", "30人", "10人", "男女不限，需监护人全程陪同"],
+                ["青年组", "14-17周岁", "70人", "30人", "10人", "男女不限，需监护人签署免责协议"],
+                ["成人公开组", "18-60周岁", "40人", "15人", "6人", "男女不限，无专业资格限制"],
+                ["精英组", "18-55周岁", "20人", "12人", "6人", "需满足以下任一资格：1.参加过至少一场国内高水平专业速降赛事；2.在地方级以上赛事中获得前六名；3.提交优异赛事成绩证明并经审核通过"],
+                ["大师组", "35-60周岁", "30人", "15人", "6人", "仅限男性"],
+                ["女子组", "8-60周岁", "20人", "12人", "6人", "仅限女性"],
+                [],
+                ["土坡技巧赛分组"],
+                ["组别", "年龄要求", "说明"],
+                ["公开组", "8-60周岁", "暂设为公开组，所有选手同场竞技。限50人报名，统一评判。若报名人数过多，组委会可能按年龄或水平再分组。"]
+            ];
+            const groupsWs = XLSX.utils.aoa_to_sheet(groupsData);
+            XLSX.utils.book_append_sheet(wb, groupsWs, "分组详情");
+            
+            // 3. 赛程安排表格 - 第一天
+            const scheduleDay1Data = [
+                ["3月7日（第一天：速降赛排位赛）"],
+                ["时间", "内容", "地点", "备注"],
+                ["08:30-10:00", "选手签到、领取赛事包、车辆检查、签署免责声明", "场地入口签到处", "未成年人需监护人陪同并提交签字文件"],
+                ["10:00-10:30", "开幕式（致辞、规则讲解、宣誓）", "签到处广场", "所有选手须参加"],
+                ["10:30-11:30", "少年组排位赛", "速降赛道", "按号码牌顺序发车，单人发车制"],
+                ["11:30-13:00", "青年组排位赛", "速降赛道", "按号码牌顺序发车"],
+                ["13:00-13:20", "成人公开组排位赛", "速降赛道", "按号码牌顺序发车"],
+                ["13:20-13:40", "女子组排位赛", "速降赛道", "按号码牌顺序发车"],
+                ["13:40-14:00", "精英组排位赛", "速降赛道", "按号码牌顺序发车"],
+                ["14:00-15:00", "大师组排位赛", "速降赛道", "按号码牌顺序发车"],
+                ["15:00-16:00", "排位赛成绩公示、答疑", "签到处公告栏", "选手如有异议可现场提交书面申诉"]
+            ];
+            const scheduleDay1Ws = XLSX.utils.aoa_to_sheet(scheduleDay1Data);
+            XLSX.utils.book_append_sheet(wb, scheduleDay1Ws, "赛程第一天");
+            
+            // 4. 赛程安排表格 - 第二天
+            const scheduleDay2Data = [
+                ["3月8日（第二天：速降赛决赛 + 土坡动作赛 + 颁奖）"],
+                ["时间", "内容", "地点", "备注"],
+                ["09:00-09:30", "速降赛决赛选手检录", "场地入口", "核对决赛资格，车辆二次检查"],
+                ["09:30-10:20", "少年组决赛", "速降赛道", "按排位赛成绩倒序发车（最快者最后）"],
+                ["10:20-11:10", "青年组决赛", "速降赛道", "按排位赛成绩倒序发车"],
+                ["11:10-11:30", "成人公开组决赛", "速降赛道", "按排位赛成绩倒序发车"],
+                ["11:30-11:50", "女子组决赛", "速降赛道", "按排位赛成绩倒序发车"],
+                ["11:50-12:10", "精英组决赛", "速降赛道", "按排位赛成绩倒序发车"],
+                ["12:10-12:30", "大师组决赛", "速降赛道", "按排位赛成绩倒序发车"],
+                ["12:30-13:30", "成绩统计、土坡赛检录与试场", "对应区域", "速降赛成绩核对与公布"],
+                ["13:30-16:00", "土坡动作赛正式竞赛", "土坡赛道", "每人2次机会，每次不超过60秒"],
+                ["16:00-16:30", "总成绩统计核对", "裁判区", "最终成绩确定"],
+                ["17:00-17:30", "闭幕式暨颁奖仪式", "签到处广场", "按组别依次颁奖，合影留念"]
+            ];
+            const scheduleDay2Ws = XLSX.utils.aoa_to_sheet(scheduleDay2Data);
+            XLSX.utils.book_append_sheet(wb, scheduleDay2Ws, "赛程第二天");
+            
+            // 5. 参赛规则表格
+            const rulesData = [
+                ["第四章 参赛规则"],
+                ["项目", "规则详情"],
+                ["参赛资格", "1. 身体健康，具备相应骑行技能与体能\n2. 完全了解比赛风险，自愿签署《免责声明书》\n3. 18岁以下者必须由监护人签署文件并全程陪同\n4. 赛事组委会为所有选手购买比赛日基础意外险"],
+                ["报名时间", "2026年3月5日24:00截止（各组别报满即止，逾期不再接受报名）"],
+                ["报名方式", "通过主办方官方指定的线上平台报名，填写真实信息并选择组别"],
+                ["报名费用", "速降赛：138元/人\n土坡技巧赛：128元/人\n双项目报名：238元/人（优惠价）\n费用包含：赛事包、号码牌、比赛日基础保险、参赛纪念品等。"],
+                ["取消与退款", "报名成功后，因个人原因无法参赛：\n1. 2026年2月28日18:00前申请，可退还50%报名费\n2. 之后不予退款，但可按规定自行转让名额"],
+                ["竞赛规则", "1. 比赛参照中国自行车运动协会审定的最新规则执行\n2. 速降赛赛制：排位赛+决赛，排位赛决定决赛发车顺序\n3. 土坡赛赛制：裁判从难度、完成度、流畅性、风格四个维度百分制评分\n4. 公平竞赛：选手须独立完成比赛，服从裁判判罚\n5. 对判罚有异议，可于赛后30分钟内提交书面申诉并缴纳申诉费"],
+                ["安全与环保", "1. 选手须始终将安全置于首位，遇身体不适立即停止比赛并求助\n2. 赛事处于森林防火期，严禁在赛区内任何地方吸烟、生火野炊\n3. 保护环境，所有垃圾必须带至指定丢弃点\n4. 非参赛选手严禁进入赛道，禁止在赛道逆向推行或行走"],
+                ["名次录取", "按章程中设定的\"获奖名额\"进行录取。若某组别实际完赛人数少于获奖名额，则按实际完赛人数递减录取"],
+                ["奖励办法", "各组别前三名颁发奖杯、奖牌及证书，所有获奖选手将获得奖金或等值奖品。具体奖金分配方案将于赛前在官方平台公布"]
+            ];
+            const rulesWs = XLSX.utils.aoa_to_sheet(rulesData);
+            XLSX.utils.book_append_sheet(wb, rulesWs, "参赛规则");
+            
+            // 6. 装备要求表格
+            const equipmentData = [
+                ["第五章 装备要求"],
+                ["装备类型", "具体要求"],
+                ["车辆要求", "基本要求：\n1. 参赛自行车须为24-29英寸轮径的山地自行车\n2. 必须使用宽度≥2.2英寸的齿胎\n3. 推荐使用全避震车型，前叉避震行程建议≥100mm\n4. 严禁使用带有金属螺钉或长钉的轮胎\n5. 比赛前必须通过安全检查并粘贴合格标识"],
+                ["速降赛护具(强制要求)", "1. 必须佩戴全盔\n2. 必须佩戴护膝、护肘\n3. 必须佩戴全指手套\n4. 建议穿戴：护甲、护颈等专业护具\n5. 组委会或裁判有权根据天气或赛道状况，临时提升护具强制要求"],
+                ["土坡技巧赛护具(强制要求)", "1. 必须佩戴全盔或高品质山地车半盔\n2. 必须佩戴护膝、护肘\n3. 建议穿戴：全指手套、护甲等专业护具"],
+                ["通用禁令", "1. 禁止佩戴玻璃镜片的眼镜\n2. 不得穿拖鞋或赤脚骑行\n3. 所有装备必须在赛前通过安全检查"],
+                ["装备检查", "所有参赛车辆和护具必须在签到期间接受安全检查，合格后方可粘贴参赛标识。未通过检查或未粘贴标识的装备不得用于比赛。"]
+            ];
+            const equipmentWs = XLSX.utils.aoa_to_sheet(equipmentData);
+            XLSX.utils.book_append_sheet(wb, equipmentWs, "装备要求");
+            
+            // 7. 积分机制表格
+            const pointsData = [
+                ["第六章 四季联赛积分机制"],
+                ["积分规则", "选手在每站比赛中根据名次获得相应积分。全年四站比赛结束后，各组成绩最好的3站积分相加，得出年度总积分。选手必须至少参加2站比赛才有资格参与年度排名。"],
+                [],
+                ["速降赛积分分配表（按名次）"],
+                ["名次", "第1名", "第2名", "第3名", "第4名", "第5名", "第6名", "第7名", "第8名", "第9名", "第10名"],
+                ["积分", "100", "85", "75", "65", "55", "50", "45", "40", "35", "30"],
+                ["名次", "第11名", "第12名", "第13名", "第14名", "第15名", "第16-20名", "第21-30名", "完赛", "参赛", "DNS/DNF"],
+                ["积分", "25", "20", "18", "16", "14", "10", "5", "3", "2", "0"],
+                [],
+                ["精英组额外积分奖励"],
+                ["奖励项目", "打破赛道纪录", "每站最快单圈", "连续参加3站", "全年全勤（4站）", "年度进步最大"],
+                ["额外积分", "+15", "+10", "+20", "+30", "+25"],
+                [],
+                ["年度总积分奖励"],
+                ["年度总冠军奖励", "冠军奖杯 + 10000元现金/等价奖品 + 下赛季免费参赛资格 + 赞助商产品大礼包"],
+                ["年度亚军奖励", "亚军奖杯 + 5000元现金/等价奖品 + 下赛季半价参赛资格"],
+                ["年度季军奖励", "季军奖杯 + 3000元现金/等价奖品 + 下赛季8折参赛资格"],
+                ["第4-10名奖励", "荣誉证书 + 赞助商产品礼包 + 下赛季9折参赛资格"]
+            ];
+            const pointsWs = XLSX.utils.aoa_to_sheet(pointsData);
+            XLSX.utils.book_append_sheet(wb, pointsWs, "积分机制");
+            
+            // 8. 赞助商信息表格
+            const sponsorsData = [
+                ["第七章 赞助商信息"],
+                ["赞助级别", "品牌名称", "合作内容", "联系方式"],
+                ["首席冠名赞助商", "RST专业避震系统", "为本届四季联赛提供专业的避震前叉及技术支持", "contact@rst-suspension.com"],
+                ["金牌合作伙伴", "GDRsport骑行装备", "提供专业的骑行护具、服装及装备支持", "info@gdrsport.com"],
+                ["金牌合作伙伴", "LEATT防护科技", "提供顶级的头盔、护颈、护甲等安全装备", "support@leatt.com"],
+                ["官方供应商", "WINICE运动饮料", "赛事官方指定运动饮料供应商", "partnership@winice.com"],
+                ["官方供应商", "ONIRII自行车零件", "提供高质量的自行车零部件及维修服务", "sales@onirii.com"],
+                ["官方供应商", "NTP专业轮胎", "提供专业的山地车轮胎及技术支持", "info@ntp-tires.com"],
+                ["官方供应商", "绿道越野头盔", "提供符合国际安全标准的专业骑行头盔", "service@greenway-helmet.com"]
+            ];
+            const sponsorsWs = XLSX.utils.aoa_to_sheet(sponsorsData);
+            XLSX.utils.book_append_sheet(wb, sponsorsWs, "赞助商信息");
+            
+            // 生成Excel文件并下载
+            const fileName = "东大山地车公园四季联赛竞赛章程（完整版）.xlsx";
+            XLSX.writeFile(wb, fileName);
+            
+            // 显示下载成功提示
+            const originalText = this.innerHTML;
+            this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> 下载成功！';
+            this.style.backgroundColor = '#28a745';
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.style.backgroundColor = '';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
